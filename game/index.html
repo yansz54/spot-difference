@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Twilight Harbor — Spot the Difference</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #141824; color: #e8eaf2; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { height: 64px; display: flex; align-items: center; gap: 18px; padding: 0 16px; background: #1a1e30; border-bottom: 1px solid rgba(255,255,255,0.08); box-sizing: border-box; }
+  .brand { font-size: 20px; font-weight: 800; letter-spacing: 0.2px; white-space: nowrap; }
+  .brand span { display: block; font-size: 11px; font-weight: 600; color: #9aa3c0; letter-spacing: 1.5px; text-transform: uppercase; }
+  .hud-item { font-size: 14px; color: #c6cbe0; white-space: nowrap; }
+  .hud-item.big { font-size: 20px; font-weight: 800; color: #ffd97a; }
+  .spacer { flex: 1; }
+  button { background: #2a3049; color: #e8eaf2; border: 1px solid rgba(255,255,255,0.16); border-radius: 9px; padding: 8px 14px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  button:hover:not(:disabled) { background: #363d5c; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button.primary { background: #ffbe4d; color: #241a05; border-color: #ffbe4d; font-size: 16px; padding: 11px 22px; }
+  button.primary:hover { background: #ffd27a; }
+  main { position: relative; height: calc(100vh - 64px); }
+  #game { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+  #message { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(20,24,40,0.88); border: 1px solid rgba(255,255,255,0.14); padding: 7px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; pointer-events: none; white-space: nowrap; }
+  #overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,12,22,0.72); backdrop-filter: blur(3px); }
+  #overlay.hidden, #message.hidden { display: none; }
+  .card { background: #232742; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 28px 34px; max-width: 540px; text-align: center; box-shadow: 0 18px 50px rgba(0,0,0,0.5); }
+  .card h1 { margin: 0 0 4px; font-size: 34px; }
+  .card h2 { margin: 0 0 10px; font-size: 28px; }
+  .card .tagline { margin: 0 0 14px; color: #ffd97a; font-weight: 700; }
+  .card p { margin: 10px 0; line-height: 1.55; font-size: 15px; color: #d6dae8; }
+  .card .dim { color: #9aa3c0; font-size: 14px; }
+  .card .stars { font-size: 34px; color: #ffbe4d; letter-spacing: 6px; margin: 6px 0; }
+  .card ul.levels { text-align: left; margin: 14px auto; padding: 0 0 0 20px; line-height: 1.8; font-size: 14px; color: #d6dae8; }
+  .card .keys { font-size: 13px; color: #9aa3c0; }
+  .card button { margin: 8px 4px 0; }
+  /* Read aloud, never shown: the status line screen readers announce. */
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Twilight Harbor<span>Spot the Difference</span></div>
+  <div class="hud-item" id="levelLabel">Level 1 · Twilight Harbor</div>
+  <div class="hud-item big" id="foundLabel">Found 0 / 8</div>
+  <div class="hud-item" id="timeLabel">Time 00:00</div>
+  <div class="hud-item" id="strikeLabel">Strikes 0 / 3</div>
+  <div class="spacer"></div>
+  <button id="hintBtn" type="button">Hint (3)</button>
+  <button id="pauseBtn" type="button">Pause</button>
+  <button id="restartBtn" type="button">Restart</button>
+  <button id="soundBtn" type="button">Sound: On</button>
+</header>
+<main>
+  <canvas id="game" aria-label="Twilight Harbor spot the difference game: two pictures side by side, find the eight differences"></canvas>
+  <div id="message" class="hidden" role="status"></div>
+  <div id="overlay" class="hidden"></div>
+</main>
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
